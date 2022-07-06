@@ -1,0 +1,27 @@
+version: "3"
+services:
+  nifi:
+    image: apache/nifi:1.15.2
+    hostname: nifi
+    container_name: nifi
+    ports:
+      - 8443:8443
+      - 9443:9443
+    environment:
+      - AUTH=tls
+      - KEYSTORE_PATH=/opt/certs/jks/nifi-ks.jks
+      - KEYSTORE_TYPE=JKS
+      - KEYSTORE_PASSWORD=crdpxx
+      - TRUSTSTORE_PATH=/opt/certs/jks/truststore.jks
+      - TRUSTSTORE_PASSWORD=crdpxx
+      - TRUSTSTORE_TYPE=JKS
+      - INITIAL_ADMIN_IDENTITY=CN=bane
+      # - SINGLE_USER_CREDENTIALS_USERNAME=admin
+      # - SINGLE_USER_CREDENTIALS_PASSWORD=admin1234567890
+    volumes:
+      - ./certs/ca-openssl:/opt/certs
+      # - ./nifi-contanier/conf/authorizations.xml:/opt/nifi/nifi-current/conf/authorizations.xml
+      # - ./nifi-contanier/conf/authorizers.xml:/opt/nifi/nifi-current/conf/authorizers.xml
+      # - ./nifi-contanier/conf/users.xml:/opt/nifi/nifi-current/conf/users.xml
+      # - ./nifi-contanier/conf/nifi.properties:/opt/nifi/nifi-current/conf/nifi.properties
+      
